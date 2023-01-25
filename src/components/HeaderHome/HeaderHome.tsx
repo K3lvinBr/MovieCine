@@ -40,7 +40,7 @@ const HeaderHome: FunctionComponent<HeaderProps> = ({ data }) => {
 
   setTimeout(() => {
     if (progressValue <= 100 && progressReset === false) {
-      setProgressValue(progressValue + 0.1)
+      setProgressValue(progressValue + 0.15)
     }
 
     if (progressValue >= 100) {
