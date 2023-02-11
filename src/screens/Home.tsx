@@ -4,9 +4,9 @@ import LinearGradient from 'react-native-linear-gradient'
 import { View } from 'react-native'
 
 //components
-import Card from '../components/Cards/Card'
+import Card from '../components/Home_Components/Cards/Card'
 import Loading from '../components/Loading/Loading'
-import HeaderHome from '../components/HeaderHome/HeaderHome'
+import HeaderHome from '../components/Home_Components/HeaderHome/HeaderHome'
 import RegularText from '../components/Texts/RegularText'
 
 //styles

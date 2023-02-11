@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components/native'
 
 // types
@@ -11,7 +11,7 @@ const StyledText = styled.Text`
     color: ${THEME.colors.fonts};
 `
 
-const SmallText: FunctionComponent<TextProps> = (props) => {
+const SmallText: FC<TextProps> = (props) => {
     return <StyledText numberOfLines={props.numberOfLines} style={props.textStyles}>{props.children}</StyledText>
 }
 

@@ -1,4 +1,4 @@
-import { DataProps } from "../../@types/dataTypes"
+import { DataProps } from "../../../@types/dataTypes"
 
 export type HeaderProps = {
     data: DataProps[]

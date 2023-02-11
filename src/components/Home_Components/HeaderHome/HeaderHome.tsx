@@ -2,17 +2,19 @@ import React, { FunctionComponent, useState } from 'react'
 import styled from 'styled-components/native'
 import LinearGradient from 'react-native-linear-gradient'
 import * as Animatable from 'react-native-animatable';
+import { useNavigation } from '@react-navigation/native';
 
 //components
-import RegularButton from '../Buttons/RegularButton'
-import RegularText from '../Texts/RegularText'
+import RegularButton from '../../Buttons/RegularButton'
+import RegularText from '../../Texts/RegularText'
 import HeaderProgress from './HeaderProgress'
 
 //styles
-import { ScreenHeight } from '../../assets/styles/shared'
+import { ScreenHeight } from '../../../assets/styles/shared'
 
 //types
 import { HeaderProps } from './types'
+import { NavigationProp } from '../../../@types/routesTypes';
 
 const ContainerImage = styled.View`
   height: ${ScreenHeight / 1.4}px;
@@ -58,6 +60,12 @@ const HeaderHome: FunctionComponent<HeaderProps> = ({ data }) => {
     }
   }, 0);
 
+  const navigation = useNavigation<NavigationProp>();
+
+  const handlePress = () => {
+    navigation.navigate('Details', data[getEachArray].id)
+  }
+  
   return (
     <ContainerImage>
       <Animatable.View animation={handleAnimation} onAnimationEnd={() => setHandleAnimation(undefined)} style={{ flex: 1 }}>
@@ -71,7 +79,7 @@ const HeaderHome: FunctionComponent<HeaderProps> = ({ data }) => {
                 {data[getEachArray].overview}
               </RegularText>
               <ButtonContainer>
-                <RegularButton onPress={() => { }} btnStyles={{ padding: 16 }} textStyles={{ fontSize: 12 }}>Ver Mais</RegularButton>
+                <RegularButton onPress={handlePress} btnStyles={{ padding: 16 }} textStyles={{ fontSize: 12 }}>Ver Mais</RegularButton>
               </ButtonContainer>
             </InfoContainer>
           </LinearGradient>

@@ -1,17 +1,20 @@
-import { View, Text } from 'react-native'
-import React, { FunctionComponent } from 'react'
+import React, { FC } from 'react'
 import styled from 'styled-components/native'
+import { useNavigation } from '@react-navigation/native';
+
+//components
+import RegularText from '../../Texts/RegularText';
 
 //icons
 import Icon from "react-native-vector-icons/AntDesign";
 
 //themes
-import { THEME } from '../../assets/styles/theme'
-import { ScreenHeight, ScreenWidth } from '../../assets/styles/shared'
+import { THEME } from '../../../assets/styles/theme'
+import { ScreenHeight, ScreenWidth } from '../../../assets/styles/shared'
 
 //types
-import { CardsProps } from '../../@types/dataTypes';
-import RegularText from '../Texts/RegularText';
+import { CardsProps } from '../../../@types/dataTypes';
+import { NavigationProp } from '../../../@types/routesTypes';
 
 const CardContainer = styled.TouchableOpacity`
   width: ${ScreenWidth / 2.5}px;
@@ -44,9 +47,17 @@ const IconsContainer = styled.View`
 
 
 
-const Card: FunctionComponent<CardsProps> = ({ data }) => {
+
+const Card: FC<CardsProps> = ({ data }) => {
+
+  const navigation = useNavigation<NavigationProp>();
+
+  const handlePress = () => {
+    navigation.navigate('Details', data.id)
+  }
+
   return (
-    <CardContainer>
+    <CardContainer onPress={handlePress}>
       <CardImageContainer>
         <CardImage source={{ uri: `https://image.tmdb.org/t/p/w500${data.poster_path}` }} />
       </CardImageContainer>
