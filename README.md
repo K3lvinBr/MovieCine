@@ -26,8 +26,8 @@ Este projeto foi desenvolvido com as seguintes tecnologias
 - [React Native](https://reactnative.dev)
 - [TypeScript](https://www.typescriptlang.org)
 - [React Navigation](https://reactnavigation.org/)
-- [Styled-Components](https://styled-components.com/)
 - [Redux Toolkit](https://redux-toolkit.js.org/)
+- [Styled-Components](https://styled-components.com/)
 - [React-Native-Animatable](https://github.com/oblador/react-native-animatable)
 - [React Native Animated Progress](https://github.com/kcotias/react-native-animated-progress)
 
