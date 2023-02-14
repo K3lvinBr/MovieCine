@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components/native'
 import LinearGradient from 'react-native-linear-gradient'
 import * as Animatable from 'react-native-animatable';
@@ -13,8 +13,11 @@ import HeaderProgress from './HeaderProgress'
 import { ScreenHeight } from '../../../assets/styles/shared'
 
 //types
-import { HeaderProps } from './types'
 import { NavigationProp } from '../../../@types/routesTypes';
+
+//redux
+import { useSelector } from 'react-redux';
+import { useData } from '../../../redux/sliceGetMovies';
 
 const ContainerImage = styled.View`
   height: ${ScreenHeight / 1.4}px;
@@ -33,7 +36,9 @@ const ButtonContainer = styled.View`
   width: 150px;
 `
 
-const HeaderHome: FunctionComponent<HeaderProps> = ({ data }) => {
+const HeaderHome = () => {
+
+  const dataMovies = useSelector(useData)
 
   const [getEachArray, setgetEachArray] = useState<number>(0)
   const [progressValue, setProgressValue] = useState<number>(0)
@@ -50,7 +55,7 @@ const HeaderHome: FunctionComponent<HeaderProps> = ({ data }) => {
       setProgressValue(0)
       setHandleAnimation("fadeInLeft")
       {
-        getEachArray === data.length - 1
+        getEachArray === dataMovies.length - 1
           ? setgetEachArray(0)
           : setgetEachArray(getEachArray + 1)
       }
@@ -63,20 +68,20 @@ const HeaderHome: FunctionComponent<HeaderProps> = ({ data }) => {
   const navigation = useNavigation<NavigationProp>();
 
   const handlePress = () => {
-    navigation.navigate('Details', data[getEachArray].id)
+    navigation.navigate('Details', dataMovies[getEachArray].id)
   }
   
   return (
     <ContainerImage>
       <Animatable.View animation={handleAnimation} onAnimationEnd={() => setHandleAnimation(undefined)} style={{ flex: 1 }}>
-        <Image source={{ uri: `https://image.tmdb.org/t/p/w500${data[getEachArray].poster_path}` }}>
+        <Image source={{ uri: `https://image.tmdb.org/t/p/w500${dataMovies[getEachArray].poster_path}` }}>
           <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,1)']} style={{ flex: 1, justifyContent: 'flex-end' }}>
             <InfoContainer>
               <RegularText numberOfLines={2} textStyles={{ fontSize: 30, marginBottom: 4 }}>
-                {data[getEachArray].title.split(' ').slice(0, 3).join(' ')}
+                {dataMovies[getEachArray].title.split(' ').slice(0, 3).join(' ')}
               </RegularText>
               <RegularText numberOfLines={1} textStyles={{ fontSize: 12, marginRight: 120, marginBottom: 20 }}>
-                {data[getEachArray].overview}
+                {dataMovies[getEachArray].overview}
               </RegularText>
               <ButtonContainer>
                 <RegularButton onPress={handlePress} btnStyles={{ padding: 16 }} textStyles={{ fontSize: 12 }}>Ver Mais</RegularButton>

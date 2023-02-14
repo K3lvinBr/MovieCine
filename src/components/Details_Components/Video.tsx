@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import styled from 'styled-components/native'
 
 //styles
@@ -9,10 +9,11 @@ import Icon from "react-native-vector-icons/AntDesign";
 
 //components
 import SmallButton from '../Buttons/SmallButton';
-import { Linking, TouchableHighlight  } from 'react-native';
+import { Linking, TouchableHighlight } from 'react-native';
 
-//types
-import { ItemsProps } from '../../@types/dataTypes';
+//redux
+import { useSelector } from 'react-redux';
+import { useItem } from '../../redux/sliceGetDetailMovie';
 
 const VideoImage = styled.ImageBackground`
     height: ${ScreenHeight / 5.0}px;
@@ -23,16 +24,22 @@ const VideoImage = styled.ImageBackground`
     object-fit: cover;
 `
 
-const Video: FC<ItemsProps> = ({data}) => {
+const Video = () => {
+
+  const dataMovie = useSelector(useItem)
 
   const trailerLink = () => {
-    Linking.openURL(`https://www.youtube.com/results?search_query=${data.title}`)
+    Linking.openURL(`https://www.youtube.com/results?search_query=${dataMovie.title}`)
   }
 
   return (
-    <TouchableHighlight  onPress={trailerLink}>
-      <VideoImage imageStyle={{ borderRadius: 10 }} source={{ uri: `https://image.tmdb.org/t/p/w500${data.belongs_to_collection === null ? data.backdrop_path : data.belongs_to_collection.backdrop_path}` }} >
-        <SmallButton onPress={trailerLink} btnStyles={{ borderRadius: 20, paddingVertical: 6, paddingHorizontal: 10}}
+    <TouchableHighlight onPress={trailerLink}>
+      <VideoImage imageStyle={{ borderRadius: 10 }} source={{
+        uri: `https://image.tmdb.org/t/p/w500${dataMovie.belongs_to_collection === null
+          ? dataMovie.backdrop_path
+          : dataMovie.belongs_to_collection.backdrop_path}`
+      }} >
+        <SmallButton onPress={trailerLink} btnStyles={{ borderRadius: 20, paddingVertical: 6, paddingHorizontal: 10 }}
           textStyles={{ fontSize: 12, fontWeight: 'bold' }}
           icon={<Icon name={'play'} color={'#FFF'} size={16} style={{ marginRight: 8 }} />}
         >

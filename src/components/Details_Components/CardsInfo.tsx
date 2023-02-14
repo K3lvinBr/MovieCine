@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React from 'react'
 import styled from 'styled-components/native'
 
 //styles
@@ -8,8 +8,9 @@ import { THEME } from '../../assets/styles/theme'
 //components
 import RegularText from '../Texts/RegularText'
 
-//types
-import { ItemsProps } from '../../@types/dataTypes'
+//redux
+import { useSelector } from 'react-redux'
+import { useItem } from '../../redux/sliceGetDetailMovie'
 
 const CardContainer = styled.View`
   margin: -8px 30px 0px 30px;
@@ -40,7 +41,9 @@ const CardDate = styled.View`
   background-color: #FFF;
 `
 
-const CardsInfo: FC<ItemsProps> = ({data}) => {
+const CardsInfo = () => {
+
+  const dataMovie = useSelector(useItem)
 
   const convertDate = (dateString): string => {
     let dateComponents = dateString.split('-');
@@ -53,18 +56,18 @@ const CardsInfo: FC<ItemsProps> = ({data}) => {
 
   return (
     <CardContainer>
-      <Card source={{ uri: `https://image.tmdb.org/t/p/w500${data.poster_path}` }} />
+      <Card source={{ uri: `https://image.tmdb.org/t/p/w500${dataMovie.poster_path}` }} />
       <CardInfo>
         <CardDate>
           <RegularText textStyles={{ color: 'black', fontSize: 12 }}>
-            {convertDate(data.release_date)}
+            {convertDate(dataMovie.release_date)}
           </RegularText>
         </CardDate>
         <RegularText numberOfLines={1} textStyles={{ fontSize: 12, color: THEME.colors.subFonts }}>
-          Produtora:  <RegularText textStyles={{ fontSize: 12 }}>{data.production_companies[0] === undefined ? 'indefinida' : data.production_companies[0].name}</RegularText>
+          Produtora:  <RegularText textStyles={{ fontSize: 12 }}>{dataMovie.production_companies[0] === undefined ? 'indefinida' : dataMovie.production_companies[0].name}</RegularText>
         </RegularText>
         <RegularText numberOfLines={1} textStyles={{ fontSize: 12, color: THEME.colors.subFonts }}>
-          Popularidade:  <RegularText textStyles={{ fontSize: 12 }}>{data.popularity}</RegularText>
+          Popularidade:  <RegularText textStyles={{ fontSize: 12 }}>{dataMovie.popularity}</RegularText>
         </RegularText>
       </CardInfo>
     </CardContainer>

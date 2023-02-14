@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { FlatList } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import { View } from 'react-native'
@@ -12,40 +12,49 @@ import RegularText from '../components/Texts/RegularText'
 //styles
 import { THEME } from '../assets/styles/theme'
 
-//types
-import { DataProps } from '../@types/dataTypes'
+//redux
+import { useDispatch, useSelector } from 'react-redux'
+import { data, useData } from '../redux/sliceGetMovies'
 
 const Home = () => {
 
-  const [data, setData] = useState<DataProps[]>([])
+  const dataMovies = useSelector(useData)
 
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=21f96aa3244baaf05f0a0807fb1fc18e&language=pt-BR')
-      .then(res => {
-        return res.json()
-      }).then(data => {
-        setData(data.results)
-      })
+    const fetchData = async () => {
+      try {
+         await fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=21f96aa3244baaf05f0a0807fb1fc18e&language=pt-BR')
+          .then(res => {
+            return res.json()
+          }).then(movies => {
+            dispatch(data(movies.results))
+          })
+      } catch (err) {
+        console.log(`Erro ao buscar Dados: erro: ${err}`)
+      }
+    }
+    fetchData()
   }, [])
 
   return (
     <>
       {
-        data.length === 0
+        dataMovies.length === 0
           ? <Loading />
           : <LinearGradient colors={['rgba(0,0,0,1)', 'rgba(60,60,60,1)', 'rgba(0,0,0,1)']} style={{ flex: 1, alignItems: 'center' }}>
             <FlatList
               style={{ flex: 1 }}
-              data={data}
+              data={dataMovies}
               showsHorizontalScrollIndicator={false}
               numColumns={2}
               keyExtractor={({ id }: any) => id.toString()}
               renderItem={({ item }: any) => <Card data={item} />}
               ListHeaderComponent={() =>
                 <>
-                  <HeaderHome data={data} />
-                  <View style={{marginVertical: 26, marginLeft: 30}}>
+                  <HeaderHome />
+                  <View style={{ marginVertical: 26, marginLeft: 30 }}>
                     <RegularText textStyles={{ fontSize: 18, color: THEME.colors.primary }}>Novos</RegularText>
                     <RegularText textStyles={{ fontSize: 18 }}>Lançamentos</RegularText>
                   </View>
