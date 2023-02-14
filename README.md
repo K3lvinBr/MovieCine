@@ -10,7 +10,7 @@ Aplicativo que mostra informações sobre filmes em cartaz nos cinemas feito com
 </p>
 
 ## :page_facing_up: Projeto
-Aplicativo que mostra informações sobre filmes em cartaz nos cinemas, o projeto foi feito com o React Native CLI e TypeScript, utilizando o React Navigation para fazer as navegações entre telas e o Redux Toolkit para gerenciar o estado.
+Aplicativo que mostra informações sobre filmes em cartaz nos cinemas, o projeto foi feito com o React Native CLI e TypeScript, utilizando o React Navigation para fazer as navegações entre telas e o Redux Toolkit para gerenciar os estados.
 Foi utilizada a api do [TheMovieDb](https://www.themoviedb.org/) para pegar os filmes e suas informações com um fetch, Styled-Components para deixar tudo organizado
 e reutilizável. As animações foram feitas com React-Native-Animatable e React Native Animated Progress para criar a barra de carregamento ao mostrar os filmes no cabeçalho.
 
@@ -27,7 +27,7 @@ Este projeto foi desenvolvido com as seguintes tecnologias
 - [TypeScript](https://www.typescriptlang.org)
 - [React Navigation](https://reactnavigation.org/)
 - [Styled-Components](https://styled-components.com/)
-- [Redux](https://redux.js.org)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
 - [React-Native-Animatable](https://github.com/oblador/react-native-animatable)
 - [React Native Animated Progress](https://github.com/kcotias/react-native-animated-progress)
 
